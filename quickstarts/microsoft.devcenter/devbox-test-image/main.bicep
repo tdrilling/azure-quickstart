@@ -32,5 +32,6 @@ resource logs 'Microsoft.Resources/deploymentScripts/logs@2020-10-01' existing =
   name: 'default'
 }
 
-output logs array = split(logs.properties.log, '\r\n')
+output logsStr string = logs.properties.log
+output logsArr array = split(logs.properties.log, '\n')
 output testKey string = deploymentScript.properties.outputs.testKey
