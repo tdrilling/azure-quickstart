@@ -25,3 +25,12 @@ resource deploymentScript 'Microsoft.Resources/deploymentScripts@2020-10-01' = {
     retentionInterval: 'PT1H'
   }
 }
+
+
+resource logs 'Microsoft.Resources/deploymentScripts/logs@2020-10-01' existing = {
+  parent: deploymentScript
+  name: 'default'
+}
+
+output logs array = split(logs.properties.log, '\n')
+output myBool bool = deploymentScript.properties.outputs.testKey

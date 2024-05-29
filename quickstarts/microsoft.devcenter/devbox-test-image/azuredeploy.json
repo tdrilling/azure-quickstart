@@ -5,7 +5,7 @@
     "_generator": {
       "name": "bicep",
       "version": "0.27.1.19265",
-      "templateHash": "8489847979609062943"
+      "templateHash": "11029459819760769337"
     }
   },
   "parameters": {
@@ -28,10 +28,20 @@
       "properties": {
         "forceUpdateTag": "[parameters('guidId')]",
         "azPowerShellVersion": "9.7",
-        "scriptContent": "    $ErrorActionPreference = \"Stop\"\r\n    Set-StrictMode -Version Latest\r\n\r\n    Write-Host 'Writing to Host'\r\n    Write-Output 'Writing to Output'\r\n\r\n    $PSVersionTable\r\n    ",
+        "scriptContent": "    $ErrorActionPreference = \"Stop\"\r\n    Set-StrictMode -Version Latest\r\n\r\n    Write-Host 'Writing to Host'\r\n    Write-Output 'Writing to Output'\r\n\r\n    $PSVersionTable\r\n\r\n    $DeploymentScriptOutputs = @{}\r\n    $DeploymentScriptOutputs['testKey'] = 'test key value'\r\n\r\n    ",
         "cleanupPreference": "OnSuccess",
         "retentionInterval": "PT1H"
       }
     }
-  ]
+  ],
+  "outputs": {
+    "logs": {
+      "type": "array",
+      "value": "[split(reference(resourceId('Microsoft.Resources/deploymentScripts/logs', 'test-deployment-script', 'default'), '2020-10-01').log, '\n')]"
+    },
+    "myBool": {
+      "type": "bool",
+      "value": "[reference(resourceId('Microsoft.Resources/deploymentScripts', 'test-deployment-script'), '2020-10-01').outputs.testKey]"
+    }
+  }
 }
