@@ -1,0 +1,37 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+  "contentVersion": "1.0.0.0",
+  "metadata": {
+    "_generator": {
+      "name": "bicep",
+      "version": "0.27.1.19265",
+      "templateHash": "8489847979609062943"
+    }
+  },
+  "parameters": {
+    "location": {
+      "type": "string",
+      "defaultValue": "[resourceGroup().location]"
+    },
+    "guidId": {
+      "type": "string",
+      "defaultValue": "[newGuid()]"
+    }
+  },
+  "resources": [
+    {
+      "type": "Microsoft.Resources/deploymentScripts",
+      "apiVersion": "2020-10-01",
+      "name": "test-deployment-script",
+      "location": "[parameters('location')]",
+      "kind": "AzurePowerShell",
+      "properties": {
+        "forceUpdateTag": "[parameters('guidId')]",
+        "azPowerShellVersion": "9.7",
+        "scriptContent": "    $ErrorActionPreference = \"Stop\"\r\n    Set-StrictMode -Version Latest\r\n\r\n    Write-Host 'Writing to Host'\r\n    Write-Output 'Writing to Output'\r\n\r\n    $PSVersionTable\r\n    ",
+        "cleanupPreference": "OnSuccess",
+        "retentionInterval": "PT1H"
+      }
+    }
+  ]
+}
