@@ -16,6 +16,10 @@ resource deploymentScript 'Microsoft.Resources/deploymentScripts@2020-10-01' = {
     Write-Output 'Writing to Output'
 
     $PSVersionTable
+
+    $DeploymentScriptOutputs = @{}
+    $DeploymentScriptOutputs['testKey'] = 'test key value'
+
     '''
     cleanupPreference: 'OnSuccess'
     retentionInterval: 'PT1H'
