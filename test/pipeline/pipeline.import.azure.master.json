@@ -1825,7 +1825,7 @@
                             "targetType": "inline",
                             "filePath": "",
                             "arguments": "",
-                            "script": "Write-Host \"STARTING\"\n\n$(ttk.folder)\\Deploy-AzTemplate.ps1 `\n    -ArtifactStagingDirectory \"$(sample.folder)\" `\n    -TemplateFile \"$(sample.folder)\\$(mainTemplate.deployment.filename)\" `\n    -Location \"$(Location)\" `\n    -ResourceGroupName \"$(resourceGroup.name)\" `\n    -TemplateParametersFile \"$(sample.folder)\\$(gen.parameters.filename)\" `\n    -DeploymentName \"$(mainTemplate.deployment.name)\"\n\nWrite-Host \"ENDING\"\n\nWrite-Host \"##vso[task.setvariable variable=result.deployment]$true\"\n",
+                            "script": "$(ttk.folder)\\Deploy-AzTemplate.ps1 `\n    -ArtifactStagingDirectory \"$(sample.folder)\" `\n    -TemplateFile \"$(sample.folder)\\$(mainTemplate.deployment.filename)\" `\n    -Location \"$(Location)\" `\n    -ResourceGroupName \"$(resourceGroup.name)\" `\n    -TemplateParametersFile \"$(sample.folder)\\$(gen.parameters.filename)\" `\n    -DeploymentName \"$(mainTemplate.deployment.name)\"\n\nWrite-Host \"##vso[task.setvariable variable=result.deployment]$true\"\n",
                             "errorActionPreference": "stop",
                             "failOnStderr": "false",
                             "showWarnings": "false",
