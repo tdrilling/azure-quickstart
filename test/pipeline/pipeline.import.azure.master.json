@@ -1840,6 +1840,33 @@
                         "enabled": true,
                         "continueOnError": false,
                         "alwaysRun": false,
+                        "displayName": "TEST INJECT STEP",
+                        "timeoutInMinutes": 0,
+                        "condition": "succeeded()",
+                        "task": {
+                            "id": "e213ff0f-5d5c-4791-802d-52ea3e7be1f1",
+                            "versionSpec": "2.*",
+                            "definitionType": "task"
+                        },
+                        "inputs": {
+                            "targetType": "inline",
+                            "filePath": "",
+                            "arguments": "",
+                            "script": "dir \"$($ENV:SAMPLE_FOLDER)\"",
+                            "errorActionPreference": "stop",
+                            "failOnStderr": "false",
+                            "showWarnings": "false",
+                            "ignoreLASTEXITCODE": "false",
+                            "pwsh": "true",
+                            "workingDirectory": "",
+                            "runScriptInSeparateScope": "false"
+                        }
+                    },
+                    {
+                        "environment": {},
+                        "enabled": true,
+                        "continueOnError": false,
+                        "alwaysRun": false,
                         "displayName": "Connect To Azure (Admin) To Clean Up",
                         "timeoutInMinutes": 0,
                         "condition": "and(ne(variables['result.deployment'], 'Not Supported'), ne(variables['validation.type'], 'Manual'))",
