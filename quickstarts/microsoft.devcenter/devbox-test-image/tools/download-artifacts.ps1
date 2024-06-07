@@ -4,9 +4,9 @@ $ProgressPreference = 'SilentlyContinue'
 
 $scriptsRepoUrl = 'https://github.com/dmgonch/azure-quickstart-templates'
 $scriptsRepoBranch = "test-infra"
-$scriptsRepoPath = "quickstarts\microsoft.devcenter\devbox-test-image\artifacts"
+$scriptsRepoPath = "quickstarts\microsoft.devcenter\devbox-test-image\tools\artifacts"
 
-$toolsRoot = "C:\.tools1"
+$toolsRoot = "C:\.tools"
 $expandedArchiveRoot = "$toolsRoot\tmp"
 mkdir $expandedArchiveRoot -Force | Out-Null
 
