@@ -54,3 +54,5 @@ module aibImage '../modules/resource-aib.bicep' = {
     revision: revision
   }
 }
+
+output imageBuildLog string = aibImage.outputs.imageBuildLog
