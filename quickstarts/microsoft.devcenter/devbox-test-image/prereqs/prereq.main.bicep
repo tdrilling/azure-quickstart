@@ -13,7 +13,7 @@ resource imageIdentity 'Microsoft.ManagedIdentity/userAssignedIdentities@2023-01
 }
 
 resource gallery 'Microsoft.Compute/galleries@2023-07-03' = {
-  name: 'gallery-${uniqueSuffix}'
+  name: 'gallery${uniqueSuffix}'
   location: location
 }
 
