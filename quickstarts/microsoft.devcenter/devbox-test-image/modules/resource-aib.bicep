@@ -186,7 +186,6 @@ resource buildImageTemplateScript 'Microsoft.Resources/deploymentScripts@2020-10
       }
     ]
     scriptContent: loadTextContent('../tools/run-image-build.ps1')
-    // scriptContent: 'Invoke-AzResourceAction -ResourceName "${imageTemplateName}" -ResourceGroupName "${resourceGroup().name}" -ResourceType "Microsoft.VirtualMachineImages/imageTemplates" -ApiVersion "2020-02-14" -Action Run -Force'
     cleanupPreference: 'OnSuccess'
     retentionInterval: 'P1D'
   }
