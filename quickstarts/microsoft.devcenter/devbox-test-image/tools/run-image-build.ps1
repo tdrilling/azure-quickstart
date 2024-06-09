@@ -6,6 +6,16 @@ Connect-AzAccount -Identity
 Install-Module -Name Az.ImageBuilder -AllowPrerelease -Force
 # 'Az.ImageBuilder', 'Az.ManagedServiceIdentity' | ForEach-Object { Install-Module -Name $_ -AllowPrerelease -Force }
 
+Install-Module -Name Az.Storage -AllowPrerelease -Force
+Write-Output 'hello logs' | Set-Content -Encoding Ascii -Path file.log
+$ctx = New-AzStorageContext -StorageAccountName "${env:logsStorageAccountName}"
+New-AzStorageContainer -Context $ctx -Name logs -Verbose
+Set-AzStorageBlobContent -Context $ctx `
+                         -Container logs `
+                         -Blob file.log `
+                         -StandardBlobTier 'Hot' `
+                         -File file.log
+
 Write-Host "=== Starting the image build"
 Invoke-AzResourceAction -ResourceName "${env:imageTemplateName}" -ResourceGroupName "${env:resourceGroupName}" -ResourceType "Microsoft.VirtualMachineImages/imageTemplates" -ApiVersion "2020-02-14" -Action Run -Force
 
@@ -28,16 +38,6 @@ finally {
     $info | ConvertTo-Json -Depth 20
     Start-Sleep -Seconds 30
 }
-
-Write-Output 'hello logs' | Set-Content -Encoding Ascii -Path file.log
-$ctx = New-AzStorageContext -StorageAccountName "${env:logsStorageAccountName}"
-New-AzStorageContainer -Context $ctx -Name logs -Verbose
-Set-AzStorageBlobContent -Context $ctx `
-                         -Container logs `
-                         -Blob file.log `
-                         -StandardBlobTier 'Hot' `
-                         -File file.log
-
 
 Write-Host "=== DONE ==="
 Start-Sleep -Seconds 30
