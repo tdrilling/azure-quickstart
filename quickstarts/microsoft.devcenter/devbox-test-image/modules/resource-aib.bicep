@@ -154,7 +154,22 @@ resource buildImageTemplateAction 'Microsoft.Resources/deploymentScripts@2020-10
   properties: {
     forceUpdateTag: deployment().name
     azPowerShellVersion: '9.7'
-    scriptContent: 'Invoke-AzResourceAction -ResourceName "${imageTemplateName}" -ResourceGroupName "${resourceGroup().name}" -ResourceType "Microsoft.VirtualMachineImages/imageTemplates" -ApiVersion "2020-02-14" -Action Run -Force'
+    environmentVariables: [
+      {
+        name: 'imageTemplateId'
+        value: imageTemplate.id
+      }
+      // {
+      //   name: 'imageTemplateName'
+      //   value: imageTemplateName
+      // }
+      // {
+      //   name: 'resourceGroupName'
+      //   value: resourceGroup().name
+      // }
+    ]
+    scriptContent: loadTextContent('../tools/run-image-build.ps1')
+    // scriptContent: 'Invoke-AzResourceAction -ResourceName "${imageTemplateName}" -ResourceGroupName "${resourceGroup().name}" -ResourceType "Microsoft.VirtualMachineImages/imageTemplates" -ApiVersion "2020-02-14" -Action Run -Force'
     cleanupPreference: 'OnSuccess'
     retentionInterval: 'P1D'
   }
