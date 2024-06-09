@@ -16,6 +16,9 @@
     },
     "gallerySubscriptionId": {
       "value": "GET-PREREQ-gallerySubscriptionId"
+    },
+    "logsStorageAccountName": {
+      "value": "GET-PREREQ-logsStorageAccountName"
     }
   }
 }

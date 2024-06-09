@@ -34,7 +34,7 @@ resource imageIdentityRoleAssignment 'Microsoft.Authorization/roleAssignments@20
 }
 
 resource logsStorage 'Microsoft.Storage/storageAccounts@2023-04-01' = {
-  name: 'logs-${uniqueSuffix}'
+  name: 'logs${uniqueSuffix}'
   location: location
   sku: {
     name: 'Standard_LRS'
@@ -53,4 +53,4 @@ output imageIdentityId string = imageIdentity.id
 output galleryName string = gallery.name
 output galleryResourceGroup string = resourceGroup().name
 output gallerySubscriptionId string = subscription().subscriptionId
-output logsStorage string = logsStorage.name
+output logsStorageAccountName string = logsStorage.name

@@ -6,6 +6,7 @@ param galleryName string
 param galleryResourceGroup string = resourceGroup().name
 param gallerySubscriptionId string = subscription().subscriptionId
 param revision string = '${utcNow('yyyy-MM-dd-HH-mm-ss')}Z'
+param logsStorageAccountName string
 
 module config '../modules/artifacts-config.bicep' = {
   name: 'config-${uniqueString(deployment().name)}'
@@ -52,6 +53,7 @@ module aibImage '../modules/resource-aib.bicep' = {
     artifacts: artifacts
     publishingProfile: publishProfile.outputs.publishingProfile
     revision: revision
+    logsStorageAccountName: logsStorageAccountName
   }
 }
 

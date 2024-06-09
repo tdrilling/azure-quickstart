@@ -28,3 +28,17 @@ finally {
     $info | ConvertTo-Json -Depth 20
     Start-Sleep -Seconds 30
 }
+
+Write-Output 'hello logs' | Set-Content -Encoding Ascii -Path file.log
+$ctx = New-AzStorageContext -StorageAccountName "${env:logsStorageAccountName}"
+New-AzStorageContainer -Context $ctx -Name logs -Verbose
+Set-AzStorageBlobContent -Context $ctx `
+                         -Container logs `
+                         -Blob file.log `
+                         -StandardBlobTier 'Hot' `
+                         -File file.log
+
+
+Write-Host "=== DONE ==="
+Start-Sleep -Seconds 30
+

@@ -7,6 +7,7 @@ param baseImage string
 param artifacts array
 param buildProfile object
 param publishingProfile object
+param logsStorageAccountName string
 
 var artifactsWithEncodedParams = [
   for artifact in artifacts: {
@@ -165,6 +166,10 @@ resource buildImageTemplateAction 'Microsoft.Resources/deploymentScripts@2020-10
       {
         name: 'resourceGroupName'
         value: resourceGroup().name
+      }
+      {
+        name: 'logsStorageAccountName'
+        value: logsStorageAccountName
       }
     ]
     scriptContent: loadTextContent('../tools/run-image-build.ps1')

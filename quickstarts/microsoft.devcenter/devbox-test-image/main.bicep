@@ -4,6 +4,7 @@ param imageIdentity string
 param galleryName string
 param galleryResourceGroup string = resourceGroup().name
 param gallerySubscriptionId string = subscription().subscriptionId
+param logsStorageAccountName string 
 
 module image 'images/minimal.bicep' = {
   name: 'minimal'
@@ -15,6 +16,7 @@ module image 'images/minimal.bicep' = {
     galleryName: galleryName
     galleryResourceGroup: galleryResourceGroup
     gallerySubscriptionId: gallerySubscriptionId
+    logsStorageAccountName: logsStorageAccountName
   }
 }
 
