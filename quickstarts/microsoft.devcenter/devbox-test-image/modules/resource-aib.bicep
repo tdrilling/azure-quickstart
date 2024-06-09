@@ -7,7 +7,6 @@ param baseImage string
 param artifacts array
 param buildProfile object
 param publishingProfile object
-param logsStorageAccountName string
 
 var artifactsWithEncodedParams = [
   for artifact in artifacts: {
@@ -167,10 +166,6 @@ resource buildImageTemplateAction 'Microsoft.Resources/deploymentScripts@2020-10
         name: 'resourceGroupName'
         value: resourceGroup().name
       }
-      {
-        name: 'logsStorageAccountName'
-        value: logsStorageAccountName
-      }
     ]
     scriptContent: loadTextContent('../tools/run-image-build.ps1')
     // scriptContent: 'Invoke-AzResourceAction -ResourceName "${imageTemplateName}" -ResourceGroupName "${resourceGroup().name}" -ResourceType "Microsoft.VirtualMachineImages/imageTemplates" -ApiVersion "2020-02-14" -Action Run -Force'
@@ -185,3 +180,4 @@ resource logs 'Microsoft.Resources/deploymentScripts/logs@2020-10-01' existing =
 }
 
 output imageBuildLog string = logs.properties.log
+output stagingResourceGroupName string = stagingResourceGroupName

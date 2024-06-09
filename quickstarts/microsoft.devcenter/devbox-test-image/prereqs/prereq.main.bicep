@@ -33,39 +33,8 @@ resource imageIdentityRoleAssignment 'Microsoft.Authorization/roleAssignments@20
   }
 }
 
-resource logsStorage 'Microsoft.Storage/storageAccounts@2023-04-01' = {
-  name: 'logs${uniqueSuffix}'
-  location: location
-  sku: {
-    name: 'Standard_LRS'
-  }
-  kind: 'StorageV2'
-  properties: {
-    minimumTlsVersion: 'TLS1_2'
-    allowBlobPublicAccess: true
-    supportsHttpsTrafficOnly: true
-    publicNetworkAccess: 'Enabled'
-  }
-}
-
-var storageBlobDataContributorRoleDefinitionId = resourceId(
-  'Microsoft.Authorization/roleDefinitions',
-  'ba92f5b4-2d11-453d-a403-e96b0029c9fe'
-)
-
-resource logsStorageRoleAssignment 'Microsoft.Authorization/roleAssignments@2022-04-01' = {
-  name: guid(builderIdentity.id, storageBlobDataContributorRoleDefinitionId, resourceGroup().id, subscription().id)
-  scope: logsStorage
-  properties: {
-    principalId: builderIdentity.properties.principalId
-    principalType: 'ServicePrincipal'
-    roleDefinitionId: storageBlobDataContributorRoleDefinitionId
-  }
-}
-
 output builderIdentityId string = builderIdentity.id
 output imageIdentityId string = imageIdentity.id
 output galleryName string = gallery.name
 output galleryResourceGroup string = resourceGroup().name
 output gallerySubscriptionId string = subscription().subscriptionId
-output logsStorageAccountName string = logsStorage.name
