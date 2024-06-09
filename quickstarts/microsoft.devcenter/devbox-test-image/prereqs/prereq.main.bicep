@@ -53,3 +53,4 @@ output imageIdentityId string = imageIdentity.id
 output galleryName string = gallery.name
 output galleryResourceGroup string = resourceGroup().name
 output gallerySubscriptionId string = subscription().subscriptionId
+output logsStorage string = logsStorage.name
