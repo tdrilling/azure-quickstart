@@ -11,7 +11,6 @@ Invoke-AzResourceAction -ResourceName "${env:imageTemplateName}" -ResourceGroupN
 
 try {
     Write-Host "=== Waiting for the image build to complete"
-    Get-AzImageBuilderTemplate -ImageTemplateName ${env:imageTemplateName} -ResourceGroupName ${env:resourceGroupName} | Format-List
     
     # https://learn.microsoft.com/en-us/dotnet/api/microsoft.azure.powershell.cmdlets.imagebuilder.support.runstate?view=az-ps-latest
     $status = 'Started'
@@ -25,5 +24,8 @@ catch {
 }
 finally {
     Write-Host "=== Image build information (last status $status):"
-    Get-AzImageBuilderTemplateRunOutput -ImageTemplateName ${env:imageTemplateName} -ResourceGroupName ${env:resourceGroupName} | Format-List
+    $info = Get-AzImageBuilderTemplate -ImageTemplateName ${env:imageTemplateName} -ResourceGroupName ${env:resourceGroupName}
+    "LastRunStatusMessage1: $($info.LastRunStatusMessage)"
+    Write-Host "LastRunStatusMessage2: $($info.LastRunStatusMessage)"
+    Write-Host "$(Get-AzImageBuilderTemplate -ImageTemplateName ${env:imageTemplateName} -ResourceGroupName ${env:resourceGroupName})"
 }
