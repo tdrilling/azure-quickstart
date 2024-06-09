@@ -91,7 +91,7 @@ var customizers = concat(
 
 var baseImageParts = split(baseImage, '/')
 var imageTemplateName = '${imageName}-${revision}'
-var stagingResourceGroupName = '${resourceGroup().name}-stg'
+var stagingResourceGroupName = '${imageTemplateName}-stg'
 
 resource imageTemplate 'Microsoft.VirtualMachineImages/imageTemplates@2022-02-14' = {
   name: imageTemplateName
