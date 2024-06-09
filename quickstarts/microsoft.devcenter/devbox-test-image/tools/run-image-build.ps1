@@ -3,18 +3,14 @@ Set-StrictMode -Version Latest
 $ProgressPreference = 'SilentlyContinue'
 
 Connect-AzAccount -Identity
-Install-Module -Name Az.ImageBuilder -AllowPrerelease -Force
-# 'Az.ImageBuilder', 'Az.ManagedServiceIdentity' | ForEach-Object { Install-Module -Name $_ -AllowPrerelease -Force }
 
-Install-Module -Name Az.Storage -AllowPrerelease -Force
-Write-Output 'hello logs' | Set-Content -Encoding Ascii -Path file.log
-$ctx = New-AzStorageContext -StorageAccountName "${env:logsStorageAccountName}" -Permission 'Container' -Verbose
-New-AzStorageContainer -Context $ctx -Name logs -Verbose
-Set-AzStorageBlobContent -Context $ctx `
-                         -Container logs `
-                         -Blob file.log `
-                         -StandardBlobTier 'Hot' `
-                         -File file.log
+#Install-Module -Name Az.Storage -AllowPrerelease -Force
+$container = 'logs'
+$ctx = New-AzStorageContext -StorageAccountName "${env:logsStorageAccountName}"
+New-AzStorageContainer -Context $ctx -Name $container -Permission 'Blob'
+Set-AzStorageBlobContent -Context $ctx -Container $container -Blob file.log  -StandardBlobTier 'Hot' -File file.log
+
+Install-Module -Name Az.ImageBuilder -AllowPrerelease -Force
 
 Write-Host "=== Starting the image build"
 Invoke-AzResourceAction -ResourceName "${env:imageTemplateName}" -ResourceGroupName "${env:resourceGroupName}" -ResourceType "Microsoft.VirtualMachineImages/imageTemplates" -ApiVersion "2020-02-14" -Action Run -Force
