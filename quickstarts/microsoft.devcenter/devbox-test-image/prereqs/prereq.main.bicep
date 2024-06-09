@@ -48,6 +48,21 @@ resource logsStorage 'Microsoft.Storage/storageAccounts@2023-04-01' = {
   }
 }
 
+var storageBlobDataContributorRoleDefinitionId = resourceId(
+  'Microsoft.Authorization/roleDefinitions',
+  'ba92f5b4-2d11-453d-a403-e96b0029c9fe'
+)
+
+resource logsStorageRoleAssignment 'Microsoft.Authorization/roleAssignments@2022-04-01' = {
+  name: guid(builderIdentity.id, storageBlobDataContributorRoleDefinitionId, resourceGroup().id, subscription().id)
+  scope: logsStorage
+  properties: {
+    principalId: builderIdentity.properties.principalId
+    principalType: 'ServicePrincipal'
+    roleDefinitionId: storageBlobDataContributorRoleDefinitionId
+  }
+}
+
 output builderIdentityId string = builderIdentity.id
 output imageIdentityId string = imageIdentity.id
 output galleryName string = gallery.name
