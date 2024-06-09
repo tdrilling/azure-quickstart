@@ -109,7 +109,7 @@ resource imageTemplate 'Microsoft.VirtualMachineImages/imageTemplates@2022-02-14
   properties: {
     buildTimeoutInMinutes: 720
     // Use deterministic resource group for staging resources
-    stagingResourceGroup: '/subscriptions/${subscription().id}/resourceGroups/${stagingResourceGroupName}'
+    stagingResourceGroup: '${subscription().id}/resourceGroups/${stagingResourceGroupName}'
     vmProfile: {
       // https://learn.microsoft.com/en-us/azure/virtual-machines/linux/image-builder-json?tabs=json%2Cazure-powershell#user-assigned-identity-for-the-image-builder-build-vm
       userAssignedIdentities: [imageIdentity]
