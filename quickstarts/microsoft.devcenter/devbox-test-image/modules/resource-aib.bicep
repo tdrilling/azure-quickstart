@@ -170,6 +170,7 @@ resource buildImageTemplateScript 'Microsoft.Resources/deploymentScripts@2020-10
     }
   }
   dependsOn: [
+    aibImageStagingAccess
     imageTemplate
   ]
   properties: {
