@@ -25,5 +25,5 @@ catch {
 }
 finally {
     Write-Host "=== Image build information (last status '$status' '$($info.LastRunStatusMessage)'):"
-    $info | Format-List
+    $info | ConvertTo-Json -Depth 20
 }
