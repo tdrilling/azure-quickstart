@@ -25,5 +25,5 @@ catch {
 }
 finally {
     Write-Host "=== Image build information (last status $status):"
-    Get-AzImageBuilderTemplate -ImageTemplateName ${env:imageTemplateName} -ResourceGroupName ${env:resourceGroupName} | Format-List
+    Get-AzImageBuilderTemplateRunOutput -ImageTemplateName ${env:imageTemplateName} -ResourceGroupName ${env:resourceGroupName} | Format-List
 }
