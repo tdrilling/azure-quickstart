@@ -16,7 +16,8 @@ try {
     $status = 'Started'
     while ($status -ne 'Succeeded' -and $status -ne 'Failed' -and $status -ne 'Cancelled') { 
         Start-Sleep -Seconds 60
-        $status = (Get-AzImageBuilderTemplate -ImageTemplateName ${env:imageTemplateName} -ResourceGroupName ${env:resourceGroupName}).LastRunStatusRunState
+        $info = Get-AzImageBuilderTemplate -ImageTemplateName ${env:imageTemplateName} -ResourceGroupName ${env:resourceGroupName}
+        $status = $info.LastRunStatusRunState
     }
 }
 catch {
@@ -24,7 +25,6 @@ catch {
 }
 finally {
     Write-Host "=== Image build information (last status $status):"
-    $info = Get-AzImageBuilderTemplate -ImageTemplateName ${env:imageTemplateName} -ResourceGroupName ${env:resourceGroupName}
     "LastRunStatusMessage1: $($info.LastRunStatusMessage)"
     Write-Host "LastRunStatusMessage2: $($info.LastRunStatusMessage)"
     Write-Host "$(Get-AzImageBuilderTemplate -ImageTemplateName ${env:imageTemplateName} -ResourceGroupName ${env:resourceGroupName})"
