@@ -8,7 +8,7 @@ Install-Module -Name Az.ImageBuilder -AllowPrerelease -Force
 
 Install-Module -Name Az.Storage -AllowPrerelease -Force
 Write-Output 'hello logs' | Set-Content -Encoding Ascii -Path file.log
-$ctx = New-AzStorageContext -StorageAccountName "${env:logsStorageAccountName}"
+$ctx = New-AzStorageContext -StorageAccountName "${env:logsStorageAccountName}" -Permission 'Container' -Verbose
 New-AzStorageContainer -Context $ctx -Name logs -Verbose
 Set-AzStorageBlobContent -Context $ctx `
                          -Container logs `
