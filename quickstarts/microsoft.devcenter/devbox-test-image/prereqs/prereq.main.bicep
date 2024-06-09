@@ -1,6 +1,6 @@
 param location string = resourceGroup().location
 
-var uniqueSuffix = uniqueString(deployment().name)
+var uniqueSuffix = uniqueString(deployment().name, resourceGroup().name)
 
 resource builderIdentity 'Microsoft.ManagedIdentity/userAssignedIdentities@2023-01-31' = {
   name: 'identity-builder-${uniqueSuffix}'

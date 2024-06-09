@@ -1,3 +1,4 @@
+param guidId string = newGuid()
 param location string = resourceGroup().location
 param builderIdentity string
 param imageBuildStagingResourceGroupName string
@@ -59,7 +60,7 @@ resource copyCustomizationsLogScript 'Microsoft.Resources/deploymentScripts@2020
     logsStorageRoleAssignment
   ]
   properties: {
-    forceUpdateTag: deployment().name
+    forceUpdateTag: guidId
     azPowerShellVersion: '9.7'
     environmentVariables: [
       {

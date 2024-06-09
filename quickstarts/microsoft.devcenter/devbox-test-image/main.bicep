@@ -19,7 +19,7 @@ module image 'images/minimal.bicep' = {
 }
 
 module copyCustomizationsLog 'modules/customizations-log.bicep' = {
-  name: 'copy-customizations-log-${deployment().name}'
+  name: 'copy-customizations-log-${uniqueString(deployment().name, resourceGroup().name)}'
   params: {
     location: location
     builderIdentity: builderIdentity

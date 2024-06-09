@@ -1,3 +1,4 @@
+param guidId string = newGuid()
 param imageName string
 param location string
 param revision string
@@ -155,7 +156,7 @@ resource buildImageTemplateAction 'Microsoft.Resources/deploymentScripts@2020-10
     imageTemplate
   ]
   properties: {
-    forceUpdateTag: deployment().name
+    forceUpdateTag: guidId
     azPowerShellVersion: '9.7'
     environmentVariables: [
       {

@@ -24,7 +24,7 @@ var imageGalleriesFinal = [for item in imageGalleriesRaw: {
 }]
 
 module publishGalleries 'publish-galleries.bicep' = {
-  name: 'publishGalleries-${uniqueString(deployment().name)}'
+  name: 'publishGalleries-${uniqueString(deployment().name, resourceGroup().name)}'
   params: {
     imageGalleries: imageGalleriesFinal
     imageName: imageName

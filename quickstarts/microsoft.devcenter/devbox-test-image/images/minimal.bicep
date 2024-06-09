@@ -8,7 +8,7 @@ param gallerySubscriptionId string = subscription().subscriptionId
 param revision string = '${utcNow('yyyy-MM-dd-HH-mm-ss')}Z'
 
 module config '../modules/artifacts-config.bicep' = {
-  name: 'config-${uniqueString(deployment().name)}'
+  name: 'config-${uniqueString(deployment().name, resourceGroup().name)}'
   params: {
     imageBuildProfile: {}
     createSeparateSourcesDrive: false
@@ -16,7 +16,7 @@ module config '../modules/artifacts-config.bicep' = {
 }
 
 module publishProfile '../modules/publish-profile.bicep' = {
-  name: 'publishProfile-${uniqueString(deployment().name)}'
+  name: 'publishProfile-${uniqueString(deployment().name, resourceGroup().name)}'
   params: {
     location: location
     imageName: imageName
@@ -41,7 +41,7 @@ var artifacts = [
 ]
 
 module aibImage '../modules/resource-aib.bicep' = {
-  name: 'aibImage-${uniqueString(deployment().name)}'
+  name: 'aibImage-${uniqueString(deployment().name, resourceGroup().name)}'
   params: {
     imageName: imageName
     location: location
