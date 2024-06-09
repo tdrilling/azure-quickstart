@@ -24,8 +24,6 @@ catch {
     Write-Error "!!! [ERROR] Unhandled exception:`n$_`n$($_.ScriptStackTrace)" -ErrorAction Stop
 }
 finally {
-    Write-Host "=== Image build information (last status $status):"
-    "LastRunStatusMessage1: $($info.LastRunStatusMessage)"
-    Write-Host "LastRunStatusMessage2: $($info.LastRunStatusMessage)"
-    Write-Host "$(Get-AzImageBuilderTemplate -ImageTemplateName ${env:imageTemplateName} -ResourceGroupName ${env:resourceGroupName})"
+    Write-Host "=== Image build information (last status '$status' '$($info.LastRunStatusMessage)'):"
+    $info | Format-List
 }
