@@ -6,11 +6,11 @@ Connect-AzAccount -Identity
 Install-Module -Name Az.ImageBuilder -AllowPrerelease -Force
 # 'Az.ImageBuilder', 'Az.ManagedServiceIdentity' | ForEach-Object { Install-Module -Name $_ -AllowPrerelease -Force }
 
-Write-Output "=== Starting the image build"
+Write-Host "=== Starting the image build"
 Invoke-AzResourceAction -ResourceName "${env:imageTemplateName}" -ResourceGroupName "${env:resourceGroupName}" -ResourceType "Microsoft.VirtualMachineImages/imageTemplates" -ApiVersion "2020-02-14" -Action Run -Force
 
 try {
-    Write-Output "=== Waiting for the image build to complete"
+    Write-Host "=== Waiting for the image build to complete"
     
     # https://learn.microsoft.com/en-us/dotnet/api/microsoft.azure.powershell.cmdlets.imagebuilder.support.runstate?view=az-ps-latest
     $status = 'Started'
@@ -24,6 +24,6 @@ catch {
     Write-Error "!!! [ERROR] Unhandled exception:`n$_`n$($_.ScriptStackTrace)" -ErrorAction Stop
 }
 finally {
-    Write-Output "=== Image build information (last status '$status' '$($info.LastRunStatusMessage)'):"
+    Write-Host "=== Image build information (last status '$status' '$($info.LastRunStatusMessage)'):"
     $info | Format-List
 }
