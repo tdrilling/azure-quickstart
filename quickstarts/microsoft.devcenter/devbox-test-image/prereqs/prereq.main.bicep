@@ -33,6 +33,21 @@ resource imageIdentityRoleAssignment 'Microsoft.Authorization/roleAssignments@20
   }
 }
 
+resource logsStorage 'Microsoft.Storage/storageAccounts@2023-04-01' = {
+  name: 'logs-${uniqueSuffix}'
+  location: location
+  sku: {
+    name: 'Standard_LRS'
+  }
+  kind: 'StorageV2'
+  properties: {
+    minimumTlsVersion: 'TLS1_2'
+    allowBlobPublicAccess: true
+    supportsHttpsTrafficOnly: true
+    publicNetworkAccess: 'Enabled'
+  }
+}
+
 output builderIdentityId string = builderIdentity.id
 output imageIdentityId string = imageIdentity.id
 output galleryName string = gallery.name

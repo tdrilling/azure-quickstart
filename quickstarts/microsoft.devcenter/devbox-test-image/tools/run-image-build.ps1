@@ -15,7 +15,7 @@ try {
     # https://learn.microsoft.com/en-us/dotnet/api/microsoft.azure.powershell.cmdlets.imagebuilder.support.runstate?view=az-ps-latest
     $status = 'Started'
     while ($status -ne 'Succeeded' -and $status -ne 'Failed' -and $status -ne 'Cancelled') { 
-        Start-Sleep -Seconds 60
+        Start-Sleep -Seconds 30
         $info = Get-AzImageBuilderTemplate -ImageTemplateName ${env:imageTemplateName} -ResourceGroupName ${env:resourceGroupName}
         $status = $info.LastRunStatusRunState
     }
@@ -26,4 +26,5 @@ catch {
 finally {
     Write-Host "=== Image build information (last status '$status' '$($info.LastRunStatusMessage)'):"
     $info | ConvertTo-Json -Depth 20
+    Start-Sleep -Seconds 30
 }
