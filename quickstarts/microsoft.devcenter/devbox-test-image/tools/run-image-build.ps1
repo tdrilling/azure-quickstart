@@ -5,6 +5,7 @@ $ProgressPreference = 'SilentlyContinue'
 Connect-AzAccount -Identity
 
 #Install-Module -Name Az.Storage -AllowPrerelease -Force
+Write-Output 'hello logs' | Set-Content -Encoding Ascii -Path file.log
 $container = 'logs'
 $ctx = New-AzStorageContext -StorageAccountName "${env:logsStorageAccountName}"
 New-AzStorageContainer -Context $ctx -Name $container -Permission 'Blob'
