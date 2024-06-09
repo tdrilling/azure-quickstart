@@ -159,8 +159,8 @@ resource imageTemplate 'Microsoft.VirtualMachineImages/imageTemplates@2022-02-14
   }
 }
 
-resource buildImageTemplateAction 'Microsoft.Resources/deploymentScripts@2020-10-01' = {
-  name: '${imageName}-build-template-action'
+resource buildImageTemplateScript 'Microsoft.Resources/deploymentScripts@2020-10-01' = {
+  name: '${imageName}-build-template-script-${uniqueString(resourceGroup().name)}'
   location: location
   kind: 'AzurePowerShell'
   identity: {
@@ -193,7 +193,7 @@ resource buildImageTemplateAction 'Microsoft.Resources/deploymentScripts@2020-10
 }
 
 resource logs 'Microsoft.Resources/deploymentScripts/logs@2020-10-01' existing = {
-  parent: buildImageTemplateAction
+  parent: buildImageTemplateScript
   name: 'default'
 }
 

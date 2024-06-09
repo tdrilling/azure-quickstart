@@ -47,7 +47,7 @@ resource logsStorageRoleAssignment 'Microsoft.Authorization/roleAssignments@2022
 }
 
 resource copyCustomizationsLogScript 'Microsoft.Resources/deploymentScripts@2020-10-01' = {
-  name: 'copy-customizations-log-script-${uniqueSuffix}'
+  name: 'copy-customizations-log-script-${uniqueString(resourceGroup().name)}'
   location: location
   kind: 'AzurePowerShell'
   identity: {
