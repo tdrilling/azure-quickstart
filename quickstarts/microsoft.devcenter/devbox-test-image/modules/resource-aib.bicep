@@ -155,10 +155,6 @@ resource buildImageTemplateAction 'Microsoft.Resources/deploymentScripts@2020-10
     forceUpdateTag: deployment().name
     azPowerShellVersion: '9.7'
     environmentVariables: [
-      // {
-      //   name: 'imageTemplateId'
-      //   value: imageTemplate.id
-      // }
       {
         name: 'imageTemplateName'
         value: imageTemplateName
