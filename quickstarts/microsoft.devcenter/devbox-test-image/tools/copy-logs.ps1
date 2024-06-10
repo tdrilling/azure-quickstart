@@ -10,14 +10,14 @@ $stagingStorageAccountName = (Get-AzResource -ResourceGroupName ${env:imageBuild
 
 $stagingStorageAccountKey = $(Get-AzStorageAccountKey -StorageAccountName $stagingStorageAccountName -ResourceGroupName ${env:imageBuildStagingResourceGroupName})[0].value
 $ctx = New-AzStorageContext -StorageAccountName $stagingStorageAccountName -StorageAccountKey $stagingStorageAccountKey
-$logsBlob = Get-AzStorageBlob -Context $ctx -Container packerlogs | Where-Object { $_.Name -eq $logsFile }
+$logsBlob = Get-AzStorageBlob -Context $ctx -Container packerlogs | Where-Object { $_.Name  -like "*/$logsFile" }
 if (-not $logsBlob) {
     Write-Host "Could not find customization.log in storage account: $stagingStorageAccountName"
     return
 }
 
 Write-Host "=== Downloading $logsFile in storage account: $stagingStorageAccountName"
-Get-AzStorageBlobContent -Context $ctx -CloudBlob $logsBlob.ICloudBlob -Destination $logsFile
+Get-AzStorageBlobContent -Context $ctx -CloudBlob $logsBlob.ICloudBlob -Destination $logsFile -Force
 
 Write-Host "=== Uploading $logsFile to storage account: ${env:logsStorageAccountName}"
 $ctx = New-AzStorageContext -StorageAccountName "${env:logsStorageAccountName}"
