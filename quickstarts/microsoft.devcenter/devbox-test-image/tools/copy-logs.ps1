@@ -8,7 +8,8 @@ $logsFile = 'customization.log'
 Write-Host "=== Looking for storage account in staging RG: ${env:imageBuildStagingResourceGroupName}"
 $stagingStorageAccountName = (Get-AzResource -ResourceGroupName ${env:imageBuildStagingResourceGroupName} -ResourceType "Microsoft.Storage/storageAccounts")[0].Name
 
-$ctx = New-AzStorageContext -StorageAccountName $stagingStorageAccountName
+$stagingStorageAccountKey = $(Get-AzStorageAccountKey -StorageAccountName $stagingStorageAccountName -ResourceGroupName ${env:imageBuildStagingResourceGroupName})[0].value
+$ctx = New-AzStorageContext -StorageAccountName $stagingStorageAccountName -StorageAccountKey $stagingStorageAccountKey
 $logsBlob = Get-AzStorageBlob -Context $ctx -Container packerlogs | Where-Object { $_.Name -eq $logsFile }
 if (-not $logsBlob) {
     Write-Host "Could not find customization.log in storage account: $stagingStorageAccountName"
