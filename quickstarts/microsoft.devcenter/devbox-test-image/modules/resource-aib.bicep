@@ -114,7 +114,7 @@ resource imageTemplate 'Microsoft.VirtualMachineImages/imageTemplates@2022-02-14
     vmProfile: {
       // https://learn.microsoft.com/en-us/azure/virtual-machines/linux/image-builder-json?tabs=json%2Cazure-powershell#user-assigned-identity-for-the-image-builder-build-vm
       userAssignedIdentities: [imageIdentity]
-      vmSize: 'Standard_D16ads_v5' // TODO: use buildProfile as well
+      vmSize: 'Standard_D8_v4' // TODO: use buildProfile as well
       osDiskSizeGB: buildProfile.diskSize
     }
     source: {
