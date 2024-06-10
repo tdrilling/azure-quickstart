@@ -18,8 +18,8 @@ module image 'images/minimal.bicep' = {
   }
 }
 
-module copyCustomizationsLog 'modules/customizations-log.bicep' = {
-  name: 'copy-customizations-log-${uniqueString(deployment().name, resourceGroup().name)}'
+module getCustomizationsLog 'modules/customizations-log.bicep' = {
+  name: 'get-customizations-log-${uniqueString(deployment().name, resourceGroup().name)}'
   params: {
     location: location
     builderIdentity: builderIdentity
@@ -29,7 +29,7 @@ module copyCustomizationsLog 'modules/customizations-log.bicep' = {
 
 output stagingResourceGroupName string = image.outputs.stagingResourceGroupName
 output imageBuildLog string = image.outputs.imageBuildLog
-output customizationsLog string = copyCustomizationsLog.outputs.copyCustomizationsLogScriptResult
+output getCustomizationsLog string = getCustomizationsLog.outputs.copyCustomizationsLogScriptResult
 
 //param guidId string = newGuid()
 
