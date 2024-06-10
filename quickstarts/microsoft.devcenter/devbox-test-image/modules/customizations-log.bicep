@@ -72,7 +72,7 @@ resource copyCustomizationsLogScript 'Microsoft.Resources/deploymentScripts@2020
         value: logsStorage.name
       }
     ]
-    scriptContent: loadTextContent('../tools/copy-logs.ps1')
+    scriptContent: loadTextContent('../tools/get-customizations-log.ps1')
     cleanupPreference: 'OnSuccess'
     retentionInterval: 'PT1H'
   }
