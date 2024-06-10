@@ -19,6 +19,10 @@ if (-not $logsBlob) {
 Write-Host "=== Downloading $logsFile in storage account: $stagingStorageAccountName"
 Get-AzStorageBlobContent -Context $ctx -CloudBlob $logsBlob.ICloudBlob -Destination $logsFile -Force
 
+$logLinesCount = 1000
+Write-Host "=== Last $logLinesCount lines of $logsFile :"
+Get-Content $logsFile -Tail $logLinesCount
+
 Write-Host "=== Uploading $logsFile to storage account: ${env:logsStorageAccountName}"
 $ctx = New-AzStorageContext -StorageAccountName "${env:logsStorageAccountName}"
 New-AzStorageContainer -Context $ctx -Name logs -Permission 'Blob'
