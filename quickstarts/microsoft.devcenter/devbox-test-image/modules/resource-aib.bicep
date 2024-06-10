@@ -94,23 +94,6 @@ var baseImageParts = split(baseImage, '/')
 var imageTemplateName = '${imageName}-${revision}'
 var stagingResourceGroupName = '${imageTemplateName}-stg'
 
-// module aibImageStaging './resource-aib-staging.bicep' = {
-//   name: 'aibImageStaging-${uniqueString(deployment().name, resourceGroup().name)}'
-//   scope: subscription()
-//   params: {
-//     location: location
-//     stagingResourceGroupName: stagingResourceGroupName
-//   }
-// }
-
-// module aibImageStagingAccess './resource-aib-staging-access.bicep' = {
-//   name: 'aibImageStagingAccess-${uniqueString(deployment().name, resourceGroup().name)}'
-//   scope: resourceGroup(stagingResourceGroupName)
-//   params: {
-//     builderIdentity: builderIdentity
-//   }
-// }
-
 resource imageTemplate 'Microsoft.VirtualMachineImages/imageTemplates@2022-02-14' = {
   name: imageTemplateName
   location: location
