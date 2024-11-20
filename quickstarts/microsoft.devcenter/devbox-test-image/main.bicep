@@ -30,6 +30,7 @@ param gallerySubscriptionId string = subscription().subscriptionId
 // output stagingResourceGroupName string = image.outputs.stagingResourceGroupName
 // output imageBuildLog string = image.outputs.imageBuildLog
 // output getCustomizationsLog string = getCustomizationsLog.outputs.copyCustomizationsLogScriptResult
+// 
 
 param guidId string = newGuid()
 
